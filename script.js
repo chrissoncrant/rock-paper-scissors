@@ -185,7 +185,7 @@ function game() {
     }
 }
 
-//game();
+game();
 
 
 
