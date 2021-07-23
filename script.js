@@ -185,8 +185,11 @@ function game() {
     }
 }
 
-game();
+let button = document.getElementsByTagName("button");
 
+function playGame() {
+    button.onclick = game();
+}
 
 
 
