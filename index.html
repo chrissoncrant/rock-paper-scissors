@@ -11,9 +11,25 @@
     </head>
     <body>
         <h1 class="title">Rock, Paper, Scissors - Shoot!</h1>
-        <div class="button-div">
-            <button onclick="playGame()">Play now!</button>
+        <div class="main">
+            <div class="start-btn-div btn-div">
+                <button id="start-btn">Play now!</button>
+            </div>
+            <div class="winningScore-div btn-div">
+                <h2>Choose the winning score:</h2>
+                <button id="1" class="scoreOptions">1</button>
+                <button id="3" class="scoreOptions">3</button>
+                <button id="5" class="scoreOptions">5</button>
+            </div>
+            <div class="choices-btn-div btn-div">
+                <h2>Rock, Paper, or Scissors?</h2>
+                <button id="rock" class="choice-btn">Rock</button>
+                <button id="paper" class="choice-btn">Paper</button>
+                <button id="scissors" class="choice-btn">Scissors</button>
+            </div>
+            
         </div>
+        
         <script src="script.js"></script>
     </body>
 </html>
