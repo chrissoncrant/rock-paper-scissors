@@ -1,4 +1,4 @@
-//Original Game:
+//Original Game Function:
 /*
 function game() {
     let userScore = 0;
@@ -130,17 +130,18 @@ function getCpuChoice() {
     let a = Math.floor(Math.random() * 3);
     switch (a)  {
         case 0: 
-            return "rock";
+            return "Rock";
             break;
         case 1:
-            return "paper";
+            return "Paper";
             break;
         case 2:
-            return "scissors";
+            return "Scissors";
             break;
     };
 }
 
+/*
 function getWinningScore() {
     let winningScore = prompt("What will the winning score be?");
     if (winningScore === null) {return};
@@ -151,7 +152,9 @@ function getWinningScore() {
     }
     return parseInt(winningScore);
 }
+*/
 
+/*
 function getUserChoice() {
     let choice = prompt("rock, paper, or scissors?");
     if (choice === null) throw("");
@@ -162,6 +165,7 @@ function getUserChoice() {
     }
     return choice;
 }
+*/
 
 function compareChoices() { 
     userChoice = getUserChoice();
@@ -169,7 +173,7 @@ function compareChoices() {
     alert(`Computer chose ${cpuChoice}`);
     if (userChoice === "rock") {
         //User Wins
-        if (cpuChoice === "scissors") {
+        if (cpuChoice === "Scissors") {
             userScore++;
             if (userScore === winningScore) {
                 alert(`You win! Final score: User: ${userScore} CPU: ${cpuScore}`);
@@ -180,7 +184,7 @@ function compareChoices() {
             return;
         }
         //CPU Wins
-        if (cpuChoice === "paper") {
+        if (cpuChoice === "Paper") {
             cpuScore++;
             if (cpuScore === winningScore) {
                 alert(`The CPU wins! Final score: User: ${userScore} CPU: ${cpuScore}`);
@@ -191,14 +195,14 @@ function compareChoices() {
             return;
         }
         //Tie
-        if (cpuChoice === "rock") {
+        if (cpuChoice === "Rock") {
             alert(`Tie! Your score: ${userScore}. CPU score: ${cpuScore}.`);
             return;
         }
     };
     if (userChoice === "paper") {
         //User Wins
-        if (cpuChoice === "rock") {
+        if (cpuChoice === "Rock") {
             userScore++;
             if (userScore === winningScore) {
                 alert(`You win! Final score: User: ${userScore} CPU: ${cpuScore}`);
@@ -209,7 +213,7 @@ function compareChoices() {
             return;
         }
         //CPU Wins
-        if (cpuChoice === "scissors") {
+        if (cpuChoice === "Scissors") {
             cpuScore++;
             if (cpuScore === winningScore) {
                 alert(`The CPU wins! Final score: User: ${userScore} CPU: ${cpuScore}`);
@@ -220,14 +224,14 @@ function compareChoices() {
             return;
         }
         //Tie
-        if (cpuChoice === "paper") {
+        if (cpuChoice === "Paper") {
             alert(`Tie! Your score: ${userScore}. CPU score: ${cpuScore}.`);
             return;
         }
     };
     if (userChoice === "scissors") {
         //User Wins
-        if (cpuChoice === "paper") {
+        if (cpuChoice === "Paper") {
             userScore++;
             if (userScore === winningScore) {
                 alert(`You win! Final score: User: ${userScore} CPU: ${cpuScore}`);
@@ -238,7 +242,7 @@ function compareChoices() {
             return;
         }
         //CPU Wins
-        if (cpuChoice === "rock") {
+        if (cpuChoice === "Rock") {
             cpuScore++;
             if (cpuScore === winningScore) {
                 alert(`The CPU wins! Final score: User: ${userScore} CPU: ${cpuScore}`);
@@ -249,7 +253,7 @@ function compareChoices() {
             return;
         }
         //Tie
-        if (cpuChoice === "scissors") {
+        if (cpuChoice === "Scissors") {
             alert(`Tie! Your score: ${userScore}. CPU score: ${cpuScore}.`);
             return;
         }
@@ -273,14 +277,18 @@ let keepGoing = true;
 */
 
 
-
+//Start Button:
 let startButton = document.querySelector("#start-btn");
 
 startButton.addEventListener('click', startGame);
 
-function startGame() {
-    document.querySelector(".start-btn-div").remove();
-    document.querySelector(".winningScore-div").style.display = "block";
+function startGame() {    
+    function hide() {
+        document.querySelector(".start-btn-div").remove();
+        document.querySelector(".winningScore-div").style.display = "block";;
+    }
+
+    setTimeout(hide, 1000);    
 }
 
 //Winning Score:
@@ -290,31 +298,33 @@ scoreOptions.forEach(trigger => {
    trigger.addEventListener('click', moveToUserChoice);
 })
 
-function moveToUserChoice(e) {
-    winningScore = e.target.id * 1;
+function moveToUserChoice() {
+    winningScore = this.textContent * 1;
     console.log(winningScore);
+    console.log(this);
     document.querySelector(".winningScore-div").remove();
     document.querySelector(".choices-btn-div").style.display = "block";
 }
 
 
 //User Choice:
-
+/*
 let rockButton = document.querySelector('#rock');
 let paperButton = document.querySelector('#paper');
 let scissorsButton = document.querySelector('#scissors');
+*/
 
 let choiceButtons = document.querySelectorAll('.choice-btn');
 
 choiceButtons.forEach(trigger => {
-    trigger.addEventListener('click', compareChoices);
+    trigger.addEventListener('click', getChoices);
 })
 
-function compareChoices(e) {
+function getChoices() {
     cpuChoice = getCpuChoice();
-    console.log(cpuChoice)
-    userChoice = e.target.textContent
-    console.log(userChoice);
+    console.log("CPU choice: " + cpuChoice);
+    userChoice = this.textContent
+    console.log("User choice: " + userChoice);
 }
 
 
