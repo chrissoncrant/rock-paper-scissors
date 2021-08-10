@@ -15,6 +15,16 @@
             <div class="start-btn-div btn-div">
                 <button id="start-btn">Play now!</button>
             </div>
+            <div class="scoreboard">
+                <div>
+                    <h3>Your Score:</h3>
+                    <p id="user-score" class="score">0</p>
+                </div>
+                <div>
+                    <h3>CPU Score:</h3>
+                    <p id="cpu-score" class="score">0</p>
+                </div>
+            </div> 
             <div class="winningScore-div btn-div">
                 <h2>Choose the winning score:</h2>
                 <button id="w1" class="scoreOptions">1</button>
@@ -22,24 +32,17 @@
                 <button id="w5" class="scoreOptions">5</button>
             </div>
             <div class="choices-btn-div btn-div">
-                <h2>Rock, Paper, or Scissors?</h2>
+                <h2 id=choice-title>Rock, Paper, or Scissors?</h2>
                 <button id="rock" class="choice-btn">Rock</button>
                 <button id="paper" class="choice-btn">Paper</button>
                 <button id="scissors" class="choice-btn">Scissors</button>
-            </div>
-            <div class="scoreboard">
-                <div id="user-score">
-                    <h3>Your Score:</h3>
-                    <p class="score">0</p>
-                </div>
-                <div id="cpu-score">
-                    <h3>CPU Score:</h3>
-                    <p class="score">0</p>
+                <div id="choice-display">
+                    <div id="user-choice"></div>
+                    <div id="cpu-choice"></div>
                 </div>
             </div>
             
-        </div>
-        
+        </div>    
         <script src="script.js"></script>
     </body>
 </html>
