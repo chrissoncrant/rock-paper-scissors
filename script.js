@@ -64,7 +64,7 @@ function startGame() {
     })
 
     function getChoices() {
-        cpuChoice = "Scissors" /* getCpuChoice()*/;
+        cpuChoice = getCpuChoice();
         userChoice = this.textContent;
 
         //Remove choice buttons and title:
@@ -85,7 +85,7 @@ function startGame() {
             let textColor;
             const nextRoundButton = document.createElement("button");
             const newGameButton = document.createElement("button");
-            const winMessage = document.createElement("div");
+            const endGameMessage = document.createElement("div");
 
             //Creation of Next Round Button:
             nextRoundButton.classList.add("btn-div");
@@ -110,7 +110,7 @@ function startGame() {
             newGameButton.textContent = "New Game";
             newGameButton.addEventListener('click', () => {
                 newGameButton.remove();
-                winMessage.remove();
+                endGameMessage.remove();
 
                 //Remove and zero out game display:
                 gameDisplay.style.display = "none";
@@ -138,19 +138,10 @@ function startGame() {
                 }, timing)
             }
 
-            function endGameDisplay() {
+            function endGame() {
                 setTimeout(() => {
                     location.reload();
-                    }, timing)
-                
-                // winMessage.textContent = message;
-                // winMessage.style.color = textColor;
-                // gameDisplay.appendChild(winMessage);
-                // return gameDisplay.appendChild(newGameButton);
-                
-                // setTimeout(() => {
-                //     return gameDisplay.appendChild(newGameButton);
-                // }, timing)
+                    }, 2000)
             }
 
             if (userChoice === "Rock") {
@@ -162,33 +153,126 @@ function startGame() {
                     if (userScore === winningScore) {
                         message = "You won the game!";
                         textColor = "green";
-                        winMessage.textContent = message;
-                        winMessage.style.color = textColor;
-                        gameDisplay.appendChild(winMessage);
-                        return endGameDisplay();
+                        endGameMessage.textContent = message;
+                        endGameMessage.style.color = textColor;
+                        gameDisplay.appendChild(endGameMessage);
+                        return endGame();
                     } 
 
                     message = "You won this round!";
                     textColor = "green";
                     return appendAlert();
-                    /* alert(`You won this round! Your score: ${userScore}. CPU score: ${cpuScore}.`);
-                    return; */
+                   
                 }
                 //CPU Wins
                 if (cpuChoice === "Paper") {
                     cpuScore++;
+                    document.getElementById("cpu-score").textContent = cpuScore;
                     if (cpuScore === winningScore) {
-                        alert(`The CPU wins! Final score: User: ${userScore} CPU: ${cpuScore}`);
-                        keepGoing = false;
-                        return;
+                        message = "You lost the game!";
+                        textColor = "red";
+                        endGameMessage.textContent = message;
+                        endGameMessage.style.color = textColor;
+                        gameDisplay.appendChild(endGameMessage);
+                        return endGame();
                     } 
-                    alert(`The CPU won this round! Your score: ${userScore}. CPU score: ${cpuScore}.`);
-                    return;
+                    message = "You lost this round!";
+                    textColor = "red";
+                    return appendAlert();
                 }
                 //Tie
                 if (cpuChoice === "Rock") {
-                    alert(`Tie! Your score: ${userScore}. CPU score: ${cpuScore}.`);
-                    return;
+                    message = "Tie!";
+                    textColor = "orange";
+                    return appendAlert();
+                }
+            };
+
+            if (userChoice === "Paper") {
+                //User Wins
+                if (cpuChoice === "Rock") {
+                    userScore++;
+                    document.getElementById("user-score").textContent = userScore;
+
+                    if (userScore === winningScore) {
+                        message = "You won the game!";
+                        textColor = "green";
+                        endGameMessage.textContent = message;
+                        endGameMessage.style.color = textColor;
+                        gameDisplay.appendChild(endGameMessage);
+                        return endGame();
+                    } 
+
+                    message = "You won this round!";
+                    textColor = "green";
+                    return appendAlert();
+                   
+                }
+                //CPU Wins
+                if (cpuChoice === "Scissors") {
+                    cpuScore++;
+                    document.getElementById("cpu-score").textContent = cpuScore;
+                    if (cpuScore === winningScore) {
+                        message = "You lost the game!";
+                        textColor = "red";
+                        endGameMessage.textContent = message;
+                        endGameMessage.style.color = textColor;
+                        gameDisplay.appendChild(endGameMessage);
+                        return endGame();
+                    } 
+                    message = "You lost this round!";
+                    textColor = "red";
+                    return appendAlert();
+                }
+                //Tie
+                if (cpuChoice === "Paper") {
+                    message = "Tie!";
+                    textColor = "orange";
+                    return appendAlert();
+                }
+            };
+
+            if (userChoice === "Scissors") {
+                //User Wins
+                if (cpuChoice === "Paper") {
+                    userScore++;
+                    document.getElementById("user-score").textContent = userScore;
+
+                    if (userScore === winningScore) {
+                        message = "You won the game!";
+                        textColor = "green";
+                        endGameMessage.textContent = message;
+                        endGameMessage.style.color = textColor;
+                        gameDisplay.appendChild(endGameMessage);
+                        return endGame();
+                    } 
+
+                    message = "You won this round!";
+                    textColor = "green";
+                    return appendAlert();
+                   
+                }
+                //CPU Wins
+                if (cpuChoice === "Rock") {
+                    cpuScore++;
+                    document.getElementById("cpu-score").textContent = cpuScore;
+                    if (cpuScore === winningScore) {
+                        message = "You lost the game!";
+                        textColor = "red";
+                        endGameMessage.textContent = message;
+                        endGameMessage.style.color = textColor;
+                        gameDisplay.appendChild(endGameMessage);
+                        return endGame();
+                    } 
+                    message = "You lost this round!";
+                    textColor = "red";
+                    return appendAlert();
+                }
+                //Tie
+                if (cpuChoice === "Scissors") {
+                    message = "Tie!";
+                    textColor = "orange";
+                    return appendAlert();
                 }
             };
          }
