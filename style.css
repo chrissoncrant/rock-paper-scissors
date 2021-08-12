@@ -46,7 +46,7 @@ button {
     display: none;
 }
 
-.choices-btn-div {
+.game-display {
     display: none;
     margin-top: 2em;
 }
@@ -61,7 +61,7 @@ button {
     width: 200px;
     text-align: center;
     margin: 1em auto;
-    display: none;
+    /* display: none; */
     padding: 1em 0;
     border-radius: 10px;
 }

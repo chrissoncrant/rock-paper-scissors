@@ -10,6 +10,12 @@ let cpuChoice;
 
 let winningScore;
 
+const timing = 800;
+
+const setWinningScoreDiv = document.querySelector(".winningScore-div");
+
+const gameDisplay = document.querySelector(".game-display");
+
 //Independent Functions
 function getCpuChoice() {
     let a = Math.floor(Math.random() * 3);
@@ -26,91 +32,31 @@ function getCpuChoice() {
     };
 }
 
-// function compareChoices() { 
-//     let alert = document.createElement("div");
-//     let textColor;
-//     let nextBtn = document.createElement("button");
-//     nextBtn.classList.add("btn-div");
-//     nextBtn.textContent = "Next round";
-//     nextBtn.addEventListener('click', () => {
-//         removeChoiceBtns.forEach(a => {
-//             a.style.display = "inline";
-//         })
-//     })
-
-//     console.log(winningScore);
-
-//     function appendAlert(message) {
-//         alert.textContent = message;
-//         document.querySelector("#choice-display").style.display = "none";
-//         alert.style.color = textColor;
-//         document.querySelector(".choices-btn-div").appendChild(alert);
-//         setTimeout(() => {
-//             document.querySelector(".choices-btn-div").appendChild(nextBtn);
-//         }, 1200)
-//     }
-
-//     if (userChoice === "Rock") {
-//         //User Wins
-//         if (cpuChoice === "Scissors") {
-//             userScore++;
-//             document.getElementById("user-score").textContent = userScore;
-//             if (userScore === winningScore) {
-//                 /* alert(`You win! Final score: User: ${userScore} CPU: ${cpuScore}`);
-//                 keepGoing = false;
-//                 return; */
-//             } 
-//             let message = "You won this round!";
-//             textColor = "green";
-//             appendAlert(message);
-//             /* alert(`You won this round! Your score: ${userScore}. CPU score: ${cpuScore}.`);
-//             return; */
-//         }
-//         //CPU Wins
-//         if (cpuChoice === "Paper") {
-//             cpuScore++;
-//             if (cpuScore === winningScore) {
-//                 alert(`The CPU wins! Final score: User: ${userScore} CPU: ${cpuScore}`);
-//                 keepGoing = false;
-//                 return;
-//             } 
-//             alert(`The CPU won this round! Your score: ${userScore}. CPU score: ${cpuScore}.`);
-//             return;
-//         }
-//         //Tie
-//         if (cpuChoice === "Rock") {
-//             alert(`Tie! Your score: ${userScore}. CPU score: ${cpuScore}.`);
-//             return;
-//         }
-//     };
-// }
-
-
 //Start Button:
-let startButton = document.querySelector("#start-btn");
+const startButton = document.querySelector("#start-btn");
+const startButtonDiv = document.querySelector(".start-btn-div");
 
-startButton.addEventListener('click', startGame);
+startButton.addEventListener('click', loadWinningScoreChoice);
 
-function startGame() {    
-    document.querySelector(".start-btn-div").remove();
-    document.querySelector(".winningScore-div").style.display = "block";
+function loadWinningScoreChoice() {                
+    startButtonDiv.style.display = "none";
+    setWinningScoreDiv.style.display = "block";
 }
 
-//Set Winning Score:
+//Set Winning Score and Start Game:
 let scoreOptions = document.querySelectorAll('.scoreOptions');
 
 scoreOptions.forEach(trigger => {
-   trigger.addEventListener('click', moveToUserChoice);
+   trigger.addEventListener('click', startGame);
 })
 
-function moveToUserChoice() {
+function startGame() {
     winningScore = this.textContent * 1;
-    // console.log(winningScore);
-    // console.log(this);
-    document.querySelector(".winningScore-div").remove();
-    document.querySelector(".choices-btn-div").style.display = "block";
-    document.querySelector(".scoreboard").style.display = "block";
 
+    setWinningScoreDiv.style.display = "none";
+    gameDisplay.style.display = "block";
+
+    //Attach getChoices Function to choice buttons:
     let choiceButtons = document.querySelectorAll('.choice-btn');
 
     choiceButtons.forEach(trigger => {
@@ -121,42 +67,90 @@ function moveToUserChoice() {
         cpuChoice = "Scissors" /* getCpuChoice()*/;
         userChoice = this.textContent;
 
+        //Remove choice buttons and title:
         let removeChoiceBtns = document.querySelectorAll(".choice-btn");
-        
         removeChoiceBtns.forEach(a => {
             a.style.display = "none";
         })
-
         document.getElementById("choice-title").textContent = "";
+        
+        //Display the choices for computer and user:
         document.querySelector("#user-choice").textContent = `You chose: ${userChoice}`;
         document.querySelector("#cpu-choice").textContent = `The computer chose: ${cpuChoice}`;
         document.querySelector("#choice-display").style.display = "block";
 
         function compareChoices() { 
-            let alert = document.createElement("div");
+            const alertDiv = document.createElement("div");
+            let message;
             let textColor;
-            let nextBtn = document.createElement("button");
-            nextBtn.classList.add("btn-div");
-            nextBtn.textContent = "Next round";
-            nextBtn.addEventListener('click', () => {
+            const nextRoundButton = document.createElement("button");
+            const newGameButton = document.createElement("button");
+            const winMessage = document.createElement("div");
+
+            //Creation of Next Round Button:
+            nextRoundButton.classList.add("btn-div");
+            nextRoundButton.textContent = "Next round";
+            nextRoundButton.addEventListener('click', () => {
+                
+                nextRoundButton.remove();
+                
+                alertDiv.style.display = "none";
+
+                document.querySelector("#choice-display").style.display = "none";
+
+                document.getElementById("choice-title").textContent = "Rock, Paper, or Scissors?";
+
                 removeChoiceBtns.forEach(a => {
-                    document.getElementById("choice-title").textContent = "Rock, Paper, or Scissors?";
                     a.style.display = "inline";
-                    alert.remove();
-                    nextBtn.remove();
-                })
+                })   
             })
 
-            console.log(winningScore);
+            //Creation of newGameButton:
+            newGameButton.classList.add("btn-div");
+            newGameButton.textContent = "New Game";
+            newGameButton.addEventListener('click', () => {
+                newGameButton.remove();
+                winMessage.remove();
 
-            function appendAlert(message) {
-                alert.textContent = message;
+                //Remove and zero out game display:
+                gameDisplay.style.display = "none";
+                userScore = 0;
+                cpuScore = 0;
+
+                document.getElementById("user-score").textContent = userScore;
+                document.getElementById("cpu-score").textContent = cpuScore;
+                
                 document.querySelector("#choice-display").style.display = "none";
-                alert.style.color = textColor;
-                document.querySelector(".choices-btn-div").appendChild(alert);
+                removeChoiceBtns.forEach(a => {
+                    a.style.display = "inline";
+                })
+
+                startButtonDiv.style.display = "block";
+            })
+
+            function appendAlert() {
+                alertDiv.textContent = message;
+                alertDiv.style.color = textColor;
+                gameDisplay.appendChild(alertDiv);
+                
                 setTimeout(() => {
-                    document.querySelector(".choices-btn-div").appendChild(nextBtn);
-                }, 1200)
+                    gameDisplay.appendChild(nextRoundButton);
+                }, timing)
+            }
+
+            function endGameDisplay() {
+                setTimeout(() => {
+                    location.reload();
+                    }, timing)
+                
+                // winMessage.textContent = message;
+                // winMessage.style.color = textColor;
+                // gameDisplay.appendChild(winMessage);
+                // return gameDisplay.appendChild(newGameButton);
+                
+                // setTimeout(() => {
+                //     return gameDisplay.appendChild(newGameButton);
+                // }, timing)
             }
 
             if (userChoice === "Rock") {
@@ -164,14 +158,19 @@ function moveToUserChoice() {
                 if (cpuChoice === "Scissors") {
                     userScore++;
                     document.getElementById("user-score").textContent = userScore;
+
                     if (userScore === winningScore) {
-                        /* alert(`You win! Final score: User: ${userScore} CPU: ${cpuScore}`);
-                        keepGoing = false;
-                        return; */
+                        message = "You won the game!";
+                        textColor = "green";
+                        winMessage.textContent = message;
+                        winMessage.style.color = textColor;
+                        gameDisplay.appendChild(winMessage);
+                        return endGameDisplay();
                     } 
-                    let message = "You won this round!";
+
+                    message = "You won this round!";
                     textColor = "green";
-                    appendAlert(message);
+                    return appendAlert();
                     /* alert(`You won this round! Your score: ${userScore}. CPU score: ${cpuScore}.`);
                     return; */
                 }
@@ -196,7 +195,7 @@ function moveToUserChoice() {
 
         setTimeout(() => {
             compareChoices();
-        }, 1200);
+        }, timing);
     }
 
 }
